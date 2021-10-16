@@ -16,7 +16,7 @@ jobs:
           cd ..
 
       - name: Run tests
-        run:
+        run: |
           cd node-app
           yarn test
           cd ..
