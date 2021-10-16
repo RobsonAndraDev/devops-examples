@@ -46,7 +46,7 @@ jobs:
 
       - name: docker login
         run: |
-          echo ${{ secrets.GH_TOKEN }} | docker login ghcr.io --password-stdin
+          echo ${{ secrets.GH_TOKEN }} | docker login ghcr.io -u robsonandradev --password-stdin
 
       - name: docker publish to ghcr.io
         run: |
