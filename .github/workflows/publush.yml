@@ -1,0 +1,53 @@
+name: publish
+on:
+  push:
+    brach: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          cd node-app
+          yarn
+          cd ..
+
+      - name: Run tests
+        run:
+          cd node-app
+          yarn test
+          cd ..
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: source
+          path: |
+            node-app/Dockerfile
+            node-app/package.json
+            node-app/src
+          retention-days: 1
+
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+      with:
+        name: source
+        path: .
+
+      - name: build docker image
+        run: |
+          docker build -t ghcr.io/robsonandradev/node-app
+
+      - name: docker login
+        run: |
+          echo ${{ secrets.GH_TOKEN }} | docker login ghcr.io --password-stdin
+
+      - name: docker publish to ghcr.io
+        run: |
+          docker push ghcr.io/robsonandradev/node-app
