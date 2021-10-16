@@ -42,7 +42,7 @@ jobs:
 
       - name: build docker image
         run: |
-          docker build -t ghcr.io/robsonandradev/node-app
+          docker build -t ghcr.io/robsonandradev/node-app .
 
       - name: docker login
         run: |
