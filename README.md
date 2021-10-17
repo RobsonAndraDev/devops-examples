@@ -6,7 +6,7 @@ This repo shows some fundamentals about devops working
 
 ### DevOps Pillars
 
-- Monitoramento
+- Monitoring
 
 - CI/CD
 
