@@ -16,6 +16,8 @@ services:
     ports:
       - 3306:3306
     restart: always
+    volumes:
+      - ./banco.sql:/docker-entrypoint-initdb.d/banco.sql
     environment:
       MYSQL_ROOT_PASSWORD: mysql
 
